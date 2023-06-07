@@ -2,13 +2,14 @@ package clients;
 
 import utils.ObjectMapperUtils;
 
-public class TokenClient extends RestService {
-    private final String GENERATE_TOKEN = "Account/v1/GenerateToken";
+public class BooksClient extends RestService {
+    private final String BOOKS = "BookStore/v1/Books";
 
-    public TokenClient() {
+    public <T> RestResponse getBooks() {
+        return get(BOOKS);
     }
 
-    public <T> RestResponse postToken(T body) {
-        return post(GENERATE_TOKEN, ObjectMapperUtils.objectToJson(body));
+    public <T> RestResponse postBooksToUser(T body, String token) {
+        return postWithToken(BOOKS, ObjectMapperUtils.objectToJson(body), "Bearer " + token);
     }
 }

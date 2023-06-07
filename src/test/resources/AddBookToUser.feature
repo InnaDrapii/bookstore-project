@@ -1,8 +1,11 @@
 Feature: Bookstore API
 
-  Scenario: Add book to user
-    Given Create user with username 'testUser1' and password 'testPassword1'
-#    And Get books with author ''
-#    When Add these books to user
-#    Then response code is '200'
-#    And
+  Scenario: Add books to user
+    Given create user with username 'testUser76' and password 'testPassword#76'
+    And generate token for created user
+    And get books with author 'Axel Rauschmayer'
+    When add selected books to user
+    Then response status code is '201'
+    And response contains added books
+
+  #logging

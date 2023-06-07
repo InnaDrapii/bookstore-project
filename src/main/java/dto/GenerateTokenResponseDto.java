@@ -2,11 +2,10 @@ package dto;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class CreateUserResponseDto {
-    private String userID;
-    private String username;
-    private List<BookDto> books;
+public class GenerateTokenResponseDto {
+    private String token;
+    private String expires;
+    private String status;
+    private String result;
 }
