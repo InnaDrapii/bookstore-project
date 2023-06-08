@@ -5,7 +5,7 @@ import utils.ObjectMapperUtils;
 public class BooksClient extends RestService {
     private final String BOOKS = "BookStore/v1/Books";
 
-    public <T> RestResponse getBooks() {
+    public RestResponse getBooks() {
         return get(BOOKS);
     }
 

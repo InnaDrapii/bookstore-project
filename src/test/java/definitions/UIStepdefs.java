@@ -66,7 +66,7 @@ public class UIStepdefs {
     }
 
     @When("user goes to Profile page")
-    public void goToProfile() throws InterruptedException {
+    public void goToProfile(){
         homePage = pageFactoryManager.getHomePage();
         homePage.waitVisibilityOfElement(DEFAULT_TIMEOUT, homePage.getUserNameValue());
         homePage.scrollDown();
