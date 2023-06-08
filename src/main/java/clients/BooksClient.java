@@ -10,6 +10,6 @@ public class BooksClient extends RestService {
     }
 
     public <T> RestResponse postBooksToUser(T body, String token) {
-        return postWithToken(BOOKS, ObjectMapperUtils.objectToJson(body), "Bearer " + token);
+        return postWithToken(BOOKS, ObjectMapperUtils.objectToJson(body), token);
     }
 }

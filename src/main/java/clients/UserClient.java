@@ -4,7 +4,6 @@ import utils.ObjectMapperUtils;
 
 public class UserClient extends RestService {
     private final String CREATE_USER = "Account/v1/User";
-    private final String AUTHORIZED_USER = "Account/v1/Authorized";
 
     public <T> RestResponse postCreateUser(T body) {
         return post(CREATE_USER, ObjectMapperUtils.objectToJson(body));

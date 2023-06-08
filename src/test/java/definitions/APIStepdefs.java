@@ -7,6 +7,7 @@ import clients.UserClient;
 import dto.*;
 import hooks.Context;
 import hooks.ScenarioContext;
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-public class MyStepdefs {
+public class APIStepdefs {
     private final ScenarioContext context;
     private final UserClient userClient;
     private final TokenClient tokenClient;
@@ -36,15 +37,15 @@ public class MyStepdefs {
         context.setContext(Context.PASSWORD, password);
     }
 
-    @When("generate token for created user")
+    @Given("generate token for created user")
     public void generateTokenForCreatedUser() {
         RestResponse response = tokenClient.postToken(getCreatedRequestDto());
         context.setContext(Context.RESPONSE, response);
         context.setContext(Context.TOKEN, response.as(GenerateTokenResponseDto.class).getToken());
     }
 
-    @When("^get books with author '(.*)'$")
-    public void getBooksWithAuthorAxelRauschmayer(String author) {
+    @Given("^get books with author '(.*)'$")
+    public void getBooksWithAuthor(String author) {
         RestResponse response = booksClient.getBooks();
         List<BookDto> books = response.as(GetBooksResponseDto.class).getBooks();
         List<BookDto> booksOfAuthor = books.stream().filter(bookDto -> bookDto.getAuthor().equals(author)).collect(Collectors.toList());
@@ -81,6 +82,12 @@ public class MyStepdefs {
         List<IsbnDto> collectionOfIsbn = postBooksresponseDto.getBooks();
 
         Assert.assertEquals(context.getContext(Context.ISBN_LIST), collectionOfIsbn);
+    }
+
+    @After(order=2)
+    public void deleteCreatedUser() {
+        generateTokenForCreatedUser();
+        userClient.deleteUser(context.getContext(Context.USER_ID), context.getContext(Context.TOKEN));
     }
 
     private CreateUserRequestDto getCreatedRequestDto(){

@@ -7,6 +7,5 @@ public enum Context {
     PASSWORD,
     TOKEN,
     BOOKS,
-
     ISBN_LIST;
 }
